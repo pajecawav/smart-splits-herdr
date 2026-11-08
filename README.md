@@ -83,7 +83,14 @@ resize.
 
 - Do not `await` anything between `closeOverlay(launcher)` and
   `openOverlay(dialog)` in a launcher mod: closing the launcher's dialog tears
-  the whole mod instance down, mid-await included.
+  the whole mod instance down, mid-await included. The working order is
+  close launcher → open dialog (the dialog keeps the keyboard this way);
+  opening over a still-open launcher leaves the keyboard on the launcher.
+- `pane.focus {terminal}` on a paneless overlay terminal fails with
+  "no such pane" (mac session §7.1; still true in 0.1.13 on Linux) — the
+  dialog's terminal takes the keyboard on its own.
 - An `overlay` whose layout is a terminal block closes itself when that
   terminal ends — which is what closes the lazygit popup (its `hc` terminal
   outlives the window but ends with the program).
+- `terminals()` may not include a just-spawned address yet; re-checking
+  freshness right after `hc run --bg` flags a live worker as dead.
