@@ -33,15 +33,18 @@ smart-splits.nvim behaves as plain Neovim.
   "smart-splits-nvim/smart-splits.nvim",
   version = "v3.0.0",
   dependencies = {
-    { dir = "~/code/smart-splits-herdr", name = "smart-splits-herdr", opts = {} },
+    {
+  "pajecawav/smart-splits-herdr", version = "v0.2.0"
+}
   },
   opts = { mux = { backend = "smart-splits-herdr", warn_if_unusable = false } },
 }
 ```
 
-The repo is published as `pajecawav/smart-splits-herdr`; lazy.nvim can install
-it by that name instead of `dir =`. The module name leaves room for the
-community backend, which covers the herdr TUI only.
+The repo is published as `pajecawav/smart-splits-herdr` and lazy.nvim installs
+it from there, pinned by tag. For edits during development, point the same
+spec at a local checkout with `dir =`, then merge back with a tag bump: any
+change to the backend needs a push and a new tag to reach this config.
 
 Protocol conformance tests run without a multiplexer:
 
